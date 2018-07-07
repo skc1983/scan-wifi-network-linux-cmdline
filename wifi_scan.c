@@ -214,5 +214,6 @@ int main(void){
 		}else
 				printf("no result\n");
 	}
+	close(s);
 	return 0;
 }
