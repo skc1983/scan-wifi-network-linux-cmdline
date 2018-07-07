@@ -211,7 +211,7 @@ int main(void){
 			}while(ret>0);
 			printf("\n");
 		}else
-				printf("no result\n");
+			printf("no result\n");
 	}
 	close(s);
 	return 0;
