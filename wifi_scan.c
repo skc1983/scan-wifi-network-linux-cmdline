@@ -150,12 +150,11 @@ int iw_extract_event_stream(struct stream_descr* stream,struct iw_event* iwe){
 	return 1;
 }
 static inline int print_scanning_token(struct iw_event* event){
-	switch(event->cmd){
-		case SIOCGIWESSID:
-				if((event->u.essid.flags & IW_ENCODE_INDEX)>1)
-					printf("ESSID: %s   flag: %d\n",event->u.essid.pointer,(event->u.essid.flags&IW_ENCODE_INDEX));
-				else
-					printf("ESSID: %s\n",event->u.essid.pointer);
+	if(event->cmd==SIOCGIWESSID){
+		if((event->u.essid.flags & IW_ENCODE_INDEX)>1)
+			printf("ESSID: %s   flag: %d\n",event->u.essid.pointer,(event->u.essid.flags&IW_ENCODE_INDEX));
+		else
+			printf("ESSID: %s\n",event->u.essid.pointer);
 	}
 }
 int main(void){
