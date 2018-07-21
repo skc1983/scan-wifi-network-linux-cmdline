@@ -131,14 +131,14 @@ int iw_extract_event_stream(struct stream_descr* stream,struct iw_event* iwe){
 		stream->current+=iwe->len;
 		return -2;
 	}
-	memcpy((char*)iwe+IW_EV_LCP_LEN,pointer,event_len);
+	memcpy((char*)iwe+IW_EV_LCP_LEN,stream->current,event_len);
 	pointer+=event_len;
 	if(event_type==IW_HEADER_TYPE_POINT){
 		if((iwe->len-(event_len+IW_EV_LCP_LEN))>0)
 			iwe->u.data.pointer=pointer;
 		else
 			iwe->u.data.pointer=NULL;
-			stream->current+=iwe->len;
+		stream->current+=iwe->len;
 	}else{
 		if((pointer+event_len)<=(stream->current+iwe->len))
 			stream->value=pointer;
@@ -172,7 +172,7 @@ int main(void){
 	timeout-=tv.tv_usec;
 	while(1){
 		system("sudo systemctl restart dhcpcd");
-		system("sleep 5");
+		system("sleep 2");
 		while(1){
 			fd_set rfds;
 			int last_fd;
@@ -207,7 +207,6 @@ int main(void){
 			do{
 				ret=iw_extract_event_stream(&stream,&iwe);
 				print_scanning_token(&iwe);
-				system("sleep 1");
 			}while(ret>0);
 			printf("\n");
 		}else
