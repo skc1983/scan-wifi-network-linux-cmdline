@@ -107,7 +107,7 @@ int iw_extract_event_stream(struct stream_descr* stream,struct iw_event* iwe){
 		stream->current+=iwe->len;
 	return 1;
 }
-static inline int print_scanning_token(struct iw_event* event){
+void print_scanning_token(struct iw_event* event){
 	if(event->cmd==SIOCGIWESSID){
 		if((event->u.essid.flags & IW_ENCODE_INDEX)>1){
 			printf("ESSID: %30s   flag: %d	NWID: %X\n",event->u.essid.pointer,(event->u.essid.flags&IW_ENCODE_INDEX),event->u.nwid.value);
@@ -123,7 +123,7 @@ static inline int print_scanning_token(struct iw_event* event){
 }
 int main(void){
 	struct iwreq w={0};
-	unsigned char buf[IW_SCAN_MAX_DATA+IW_SCAN_MAX_DATA+IW_SCAN_MAX_DATA+IW_SCAN_MAX_DATA+IW_SCAN_MAX_DATA+IW_SCAN_MAX_DATA+IW_SCAN_MAX_DATA+IW_SCAN_MAX_DATA+IW_SCAN_MAX_DATA+IW_SCAN_MAX_DATA+IW_SCAN_MAX_DATA+IW_SCAN_MAX_DATA+IW_SCAN_MAX_DATA+IW_SCAN_MAX_DATA+IW_SCAN_MAX_DATA];
+	unsigned char buf[IW_SCAN_MAX_DATA+IW_SCAN_MAX_DATA+IW_SCAN_MAX_DATA];
 	int s=socket(AF_INET,SOCK_DGRAM,0);
 	strncpy(w.ifr_name,"wlan0",IFNAMSIZ);
 	ioctl(s,SIOCSIWSCAN,&w);
