@@ -90,7 +90,7 @@ int iw_extract_event_stream(struct stream_descr* stream,struct iw_event* iwe){
 	unsigned cmd_index;
 	if((stream->current+IW_EV_LCP_LEN)>stream->end)
 		return 0;
-	memcpy((char*)iwe,stream->current,sizeof(iwe->cmd+iwe->len));
+	memcpy((char*)iwe,stream->current,IW_EV_LCP_LEN);
 	cmd_index=iwe->cmd-SIOCIWFIRST;
 	event_type=standard_ioctl_hdr[cmd_index];
 	event_len=event_type_size[event_type];
