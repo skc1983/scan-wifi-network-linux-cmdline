@@ -131,7 +131,6 @@ int main(void){
 		system("sudo systemctl restart dhcpcd");
 		system("sleep 2");
 		w.u.data.pointer=buf;
-		w.u.data.flags=0;
 		w.u.data.length=sizeof buf;
 		strncpy(w.ifr_name,"wlan0",IFNAMSIZ);
 		if(ioctl(s,SIOCGIWSCAN,&w)<0){
